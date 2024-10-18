@@ -316,6 +316,11 @@ async function seedUsers() {
             password: hashedPassword,
             role: u.role || Role.USER,
             emailVerified: new Date(),
+            contactNo: '1234567890',
+            bio: 'Sample bio',
+            currentLocation: 'Bengaluru',
+            primaryRole: 'Developer',
+            yearsOfExperience: '2',
           },
         });
         console.log(`User created or updated: ${u.email}`);

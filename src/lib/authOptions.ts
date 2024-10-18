@@ -152,5 +152,6 @@ export const authOptions = {
   },
   pages: {
     signIn: '/signin',
+    newUser: '/onboarding',
   },
 } satisfies NextAuthOptions;

@@ -8,42 +8,62 @@ datasource db {
 }
 
 model User {
-  id         String  @id @default(cuid())
-  name       String
-
-  password   String?
-  avatar     String?
-  isVerified Boolean @default(false)
-  role       Role    @default(USER)
-  jobs       Job[]
-
-  email         String    @unique
-  emailVerified DateTime?
-  
-  oauthProvider   OauthProvider?  // Tracks OAuth provider (e.g., 'google')
-  oauthId String?
+  id                String           @id @default(cuid())
+  name              String
+  password          String?
+  avatar            String?
+  isVerified        Boolean          @default(false)
+  role              Role             @default(USER)
+  jobs              Job[]
+  workExperience    WorkExperience[]
+  projects          Project[]
+  skills            String[]
+  contactNo         String
+  bio               String
+  yearsOfExperience String
+  currentLocation   String
+  primaryRole       String
+  email             String           @unique
+  emailVerified     DateTime?
+  oauthProvider     OauthProvider? // Tracks OAuth provider (e.g., 'google')
+  oauthId           String?
+  socials           String[]
 
   blockedByAdmin DateTime?
-  
 }
 
-enum OauthProvider {
-  GOOGLE
+model WorkExperience {
+  id                Int             @id @default(autoincrement())
+  companyName       String
+  position          String
+  description       String
+  employmentType    EmployementType
+  workMode          WorkMode
+  currentWorkStatus Boolean
+  startDate         DateTime
+  endDate           DateTime?
+  userId            String
+  user              User            @relation(fields: [userId], references: [id])
 }
 
+model Project {
+  id                 Int     @id @default(autoincrement())
+  name        String
+  description String?
+  liveLink    String?
+  githubLink  String
+  userId             String
+  user               User    @relation(fields: [userId], references: [id])
+}
 
 model VerificationToken {
-  token String
+  token      String
   identifier String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  type TokenType
-  @@unique([token,identifier])
-}
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  type       TokenType
 
-enum  TokenType {
-  EMAIL_VERIFICATION
-  RESET_PASSWORD
+  @@unique([token, identifier])
 }
 
 model Job {
@@ -75,12 +95,21 @@ model Job {
   isVerifiedJob      Boolean         @default(false) @map("is_verified_job")
   postedAt           DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
-  user               User            @relation(fields: [userId], references: [id],onDelete: Cascade)
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum TokenType {
+  EMAIL_VERIFICATION
+  RESET_PASSWORD
 }
 
 enum Currency {
   INR
   USD
+}
+
+enum OauthProvider {
+  GOOGLE
 }
 
 enum WorkMode {
