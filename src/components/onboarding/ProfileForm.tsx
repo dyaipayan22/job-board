@@ -18,7 +18,6 @@ import {
 import PersonalInfoForm from './PersonalInfoForm';
 import WorkExperienceForm from './WorkExperienceForm';
 import ProjectsForm from './ProjectsForm';
-import { Briefcase, FolderGit2, User } from 'lucide-react';
 import SocialProfilesForm from './SocialProfilesForm';
 
 const steps = [
@@ -26,29 +25,25 @@ const steps = [
     name: 'Personal Info',
     description: 'Tell us about yourself so companies know who you are',
     fields: ['personalInfo'],
-    icon: <User size={20} />,
   },
   {
     name: 'Social Profiles',
     description: 'Where can people find you online?',
     fields: ['socialProfiles'],
-    icon: <User size={20} />,
   },
   {
     name: 'Projects',
     description: 'What projects have you built?',
     fields: ['projects'],
-    icon: <FolderGit2 size={20} />,
   },
   {
     name: 'Work Experience',
     description: 'What other positions have you held?',
     fields: ['workExperience'],
-    icon: <Briefcase size={20} />,
   },
 ];
 
-const OnboardingForm = () => {
+const ProfileForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const form = useForm<UserOnboardingSchemaType>({
@@ -61,7 +56,7 @@ const OnboardingForm = () => {
         bio: '',
         primaryRole: '',
         yearsOfExperience: 1,
-        skills: ['asdasd'],
+        skills: [],
       },
       socialProfiles: {
         website: '',
@@ -118,7 +113,6 @@ const OnboardingForm = () => {
   return (
     <FormProvider {...form}>
       <Card className="w-full mx-auto max-w-5xl p-4">
-        {/* <Stepper steps={steps} currentStep={currentStep} /> */}
         <div className="w-full flex">
           <CardHeader className="w-1/3">
             <CardTitle>{steps[currentStep].name}</CardTitle>
@@ -159,4 +153,4 @@ const OnboardingForm = () => {
   );
 };
 
-export default OnboardingForm;
+export default ProfileForm;

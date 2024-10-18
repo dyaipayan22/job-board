@@ -1,7 +1,7 @@
-import OnboardingForm from '@/components/onboarding/OnboardingForm';
+import ProfileForm from '@/components/onboarding/ProfileForm';
 
 const OnBoardingPage = () => {
-  return <OnboardingForm />;
+  return <ProfileForm />;
 };
 
 export default OnBoardingPage;

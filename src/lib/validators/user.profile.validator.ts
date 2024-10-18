@@ -29,9 +29,13 @@ export const PersonalInfoSchema = z.object({
   contactNo: z.string().regex(phoneRegex, 'Invalid contact number'),
   currentLocation: z.string().min(1, 'Location is required'),
   bio: z.string().max(255, 'Bio too long'),
-  primaryRole: z.string().min(1),
+  primaryRole: z.string().min(1, 'Primary role is required'),
   yearsOfExperience: z.coerce.number(),
-  skills: z.string().array(),
+  skills: z.array(
+    z.object({
+      skill: z.string(),
+    })
+  ),
 });
 
 export type PersonalInfoSchemaType = z.infer<typeof PersonalInfoSchema>;
